@@ -20,17 +20,17 @@ void StateIdle::end(){
 }
 
 void StateStationDepart::start() {
-    //system("paplay /home/phil/catkin_ws/src/model_train_control/resources/sound/d51/d51_short_whistle_brake_hiss.flac");
+    //system("ffplay -autoexit -nodisp /home/phil/catkin_ws/src/model_train_control/resources/sound/d51/d51_short_whistle_brake_hiss.flac");
     //play coaling / station announcement sound
     //play long whistle
 
     snd = m_decision_node_ptr->current_loco->getSound(SND_LONG_WHISTLE);
-    std::string s = "paplay " + snd.path;
+    std::string s = "ffplay -autoexit -nodisp " + snd.path;
     system(s.c_str());
 
     m_decision_node_ptr->throttle1 = m_decision_node_ptr->current_loco->m_start_throttle;
     snd = m_decision_node_ptr->current_loco->getSound(SND_ACCELERATE);
-    s = "paplay " + snd.path + " &";
+    s = "ffplay -autoexit -nodisp " + snd.path + " &";
     start_ = ros::WallTime::now();
     system(s.c_str());
 }
@@ -63,12 +63,12 @@ void StateStationArrive::start() {
     //play long whistle
 
     snd = m_decision_node_ptr->current_loco->getSound(SND_LONG_WHISTLE);
-    std::string s = "paplay " + snd.path  + " &";
+    std::string s = "ffplay -autoexit -nodisp " + snd.path  + " &";
     system(s.c_str());
 
 
     snd = m_decision_node_ptr->current_loco->getSound(SND_DECELERATE);
-    s = "paplay " + snd.path + " &";
+    s = "ffplay -autoexit -nodisp " + snd.path + " &";
     start_ = ros::WallTime::now();
     system(s.c_str());
 }
@@ -113,7 +113,7 @@ void StateCruise::run() {
     ROS_INFO("elapsed = %f", elapsed);
     if (elapsed > timer) {
         timer = rand()%30+snd.duration;
-        std::string s = "paplay " + snd.path + " &";
+        std::string s = "ffplay -autoexit -nodisp " + snd.path + " &";
         start_ = ros::WallTime::now();
         system(s.c_str());
     }

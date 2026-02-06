@@ -12,7 +12,7 @@
 #define POINT_2_STRAIGHT 177 //in range 0-255
 #define POINT_1_TURN 140 //in range 0-255
 #define POINT_2_TURN 110//in range 0-255
-#define SOUND_DIR "/home/phil/catkin_ws/src/model_train_control/resources/sound"
+#define SOUND_DIR "/root/catkin_ws/src/model_train_control/resources/sound"
 
 enum dirEnum {DIR_STOP,
               DIR_FORWARD,

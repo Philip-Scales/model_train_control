@@ -1,0 +1,30 @@
+services:
+  ros_mtc:
+    image: ros-noetic-qt
+    container_name: ros_mtc
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - ARDUINO_DEV=/dev/ttyACM0  # dynamically set this before starting
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+    entrypoint: /root/catkin_ws/src/model_train_control/docker/setup_arduino.sh
+    user: "${UID}:${GID}"
+
+    volumes:
+      - ../../model_train_control/:/root/catkin_ws/src/model_train_control
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+
+    privileged: true
+    network_mode: host
+    devices:
+      - "/dev/snd:/dev/snd"   # <-- passes the sound devices from host to container
+
+    command: /bin/bash -c "source /opt/ros/noetic/setup.bash && cd ~/catkin_ws && exec bash"
+
+    #command: /bin/bash -c "source /opt/ros/noetic/setup.bash && cd ~/catkin_ws && catkin_make && source /root/catkin_ws/devel/setup.bash && exec bash"
+

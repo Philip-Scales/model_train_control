@@ -1,0 +1,67 @@
+# Quick start:
+First time you use it, if image is not provided, should build the image:
+docker compose build
+
+Plug the Arduino in (usb to pc, and wall power to the motor driver shield).
+
+Then, to run the docker container:
+./run_ros_mtc.sh
+
+In the terminal, we can copy paste this command:
+catkin_make;cd src/model_train_control/; ./launch_mtc.sh
+
+catkin_make  builds the executables from the C++ source code located on the host pc.
+cd moves us to the correct directory in the model_train_control package
+./launch_mtc.sh launches all the processes needed to run the software.
+
+If all went well, you should see the graphical interface pop up with forward/backward buttons, a slider for throttle, etc...
+
+
+# TODO:
+- Check if the arduino compilation and flashing still work ok?
+
+
+
+# Information:
+This file gives the instructions to set up the docker container and other settings on your machine. 
+Two things must be done:
+- X11 forwarding to be able to see the graphical user interface;
+- udev rule so that the arduino can be connected to different usb ports without needing to change the code.
+- The current audio setup assumes the host system uses PipeWire audio system (i.e. default on ubuntu 24).
+
+
+## CONFIGURATION
+### allow X11 forwarding for GUI
+on host pc:
+xhost +local:docker
+
+
+### Set up udev rules so that the Arduino always has the same path, regardless of which USB port it's plugged into.
+# Step A — Get device info
+Plug in Arduino, then run:
+udevadm info -a -n /dev/ttyACM0 | grep '{idVendor}' -m 1
+udevadm info -a -n /dev/ttyACM0 | grep '{idProduct}' -m 1
+
+For an Arduino Uno, typical values are:
+idVendor == "2341"
+idProduct == "0043"
+If yours differ, use the numbers you get.
+
+# Step B — Create the udev rule
+
+Create the file:
+sudo gedit /etc/udev/rules.d/99-arduino.rules
+
+Add this:
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0043", SYMLINK+="arduino", MODE="0666"
+
+Save and reload:
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+Test:
+ls -l /dev/arduino
+
+You should see something like:
+/dev/arduino -> ttyACM0
+
