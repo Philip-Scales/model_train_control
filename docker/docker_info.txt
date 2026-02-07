@@ -31,9 +31,6 @@ Two things must be done:
 
 
 ## CONFIGURATION
-### allow X11 forwarding for GUI
-on host pc:
-xhost +local:docker
 
 
 ### Set up udev rules so that the Arduino always has the same path, regardless of which USB port it's plugged into.

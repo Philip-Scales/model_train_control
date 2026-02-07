@@ -3,6 +3,8 @@
 #define PRINT_EXEC_TIME 0
 
 decision::decision() {
+
+    // Setup ROS subscribers and publishers
     //sub_chatter = n.subscribe("chatter", 1, &decision::throttleCallback, this);
     sub_throttle_slider = n.subscribe("throttle_slider", 1, &decision::throttleSliderCallback, this);
     sub_dir = n.subscribe("dir", 1, &decision::dirCallback, this);
@@ -13,9 +15,6 @@ decision::decision() {
     pub_ard_dir = n.advertise<std_msgs::UInt8>("ard_dir", 0);
     pub_ard_point_command = n.advertise<std_msgs::Int32>("ard_point_command", 0);
 
-
-
-
     new_man_t = false;
     new_action_cmd = false;
 
@@ -25,9 +24,10 @@ decision::decision() {
     p = new Point(POINT_2_PIN, POINT_2_STRAIGHT, POINT_2_TURN, true, pub_ard_point_command );
     points_map[POINT_2_PIN] = p;
 
-
+    //create locomotive object  
     current_loco = new Loco(this);
 
+    //create state machine
     m_sm = new StateMachine(this);
 
 
@@ -67,6 +67,8 @@ void decision::update() {
 
 
 void decision::throttleSliderCallback(const std_msgs::Float32ConstPtr &val) {
+    // when we get a new throttle slider value, we switch to idle state 
+    // to stop any current action and let the user take control of the train
     ROS_INFO("slider callback %f", val->data);
     m_sm->switchState(STATE_IDLE);
     throttle1 = 255.0*val->data;
@@ -74,6 +76,7 @@ void decision::throttleSliderCallback(const std_msgs::Float32ConstPtr &val) {
 }
 
 void decision::dirCallback(const std_msgs::Int32ConstPtr& dir) {
+    //
     new_dir = true;
     dir_val = static_cast<dirEnum>(dir->data);
     std_msgs::UInt8 message;
