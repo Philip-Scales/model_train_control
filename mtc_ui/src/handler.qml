@@ -347,11 +347,11 @@ Rectangle {
         x: 299
         y: 0
         font.family: "Verdana"
-        displayText: qsTr("d51")
-        transformOrigin: Item.Center
+        model: locoNames
         currentIndex: 0
-        textRole: "locomotive"
+        onCurrentIndexChanged: handler.onLocoSelected(currentIndex)
     }
+
 
     Rectangle {
         id: short_whistle

@@ -2,6 +2,7 @@
 #include <QDebug>
 
 
+
 Handler::Handler(QObject *_parent):
     QObject(_parent)
 {
@@ -86,4 +87,17 @@ void Handler::setSliderValue(double _sliderValue)
         m_current_slider_value = _sliderValue;
         emit sliderValueChanged(m_current_slider_value);
     }
+}
+
+void Handler::onLocoSelected(int index)
+{
+    qDebug() << __FUNCTION__ << "index:" << index;
+
+    // bounds check
+    if (index < 0 || index >= locoNames.size()) return;
+
+    QString selectedLoco = locoNames[index];
+    qDebug() << "Emitting locoSelected:" << selectedLoco;
+
+    emit locoSelected(selectedLoco);
 }

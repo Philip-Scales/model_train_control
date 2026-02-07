@@ -1,0 +1,32 @@
+# Generic loco configuration
+# CAUTION: for now, the filename and the name field must match, as the decision node uses the name field to find the config file. This is a bit redundant and could be improved in the future.
+name: "default"
+start_throttle: 0
+stop_throttle: 0
+cruise_throttle: 127
+
+images:
+  front: "images/t18_front.png"
+  side: "images/t18_side.png"
+  top: "images/t18_top.png"
+
+sounds:
+  SND_ACCELERATE:
+    duration: 62
+    path: "t18/t18_approach_exhaust_beat_long_pass_coaches.flac"
+
+  SND_DECELERATE:
+    duration: 18
+    path: "t18/t18_arrival_hiss_brake_squeak_talking.flac"
+
+  SND_SHORT_WHISTLE:
+    duration: 0
+    path: ""
+
+  SND_LONG_WHISTLE:
+    duration: 2
+    path: "t18/t18_whistle_med.flac"
+
+  SND_PASS_MED:
+    duration: 31
+    path: "t18/t18_fast_approach.flac"

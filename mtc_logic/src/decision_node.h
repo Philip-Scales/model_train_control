@@ -24,6 +24,7 @@ public:
     void dirCallback(const std_msgs::Int32ConstPtr& dir); //get train direction from ui (enum dir in globals.h)
     void pointCommandCallback(const std_msgs::Int32ConstPtr& pc); //get point to be switched
     void actionCallback(const std_msgs::Int32ConstPtr& action);
+    void locoChangeCallback(const std_msgs::StringConstPtr& loco_name); //get selected loco from ui
 
 private:
     ros::NodeHandle n;
@@ -34,6 +35,7 @@ private:
     ros::Subscriber sub_point_command;
     ros::Subscriber sub_sound_command;
     ros::Subscriber sub_action;
+    ros::Subscriber sub_loco_change;
 
     ros::Publisher pub_ard_throttle;
     ros::Publisher pub_ard_dir;
@@ -50,6 +52,7 @@ private:
     StateEnum last_action_cmd;
 
     Loco *current_loco;
+    std::vector<Loco*> loaded_locos;
 
     std::map<int, Point*> points_map;
 

@@ -1,0 +1,32 @@
+name: "c11_2021"
+#not tuned yet
+start_throttle: 135
+stop_throttle: 125
+cruise_throttle: 170
+
+images:
+  front: "images/c11_2021_front.png"
+  side: "images/c11_2021_side.png"
+  top: "images/c11_2021_top.png"
+
+sounds:
+  SND_ACCELERATE:
+    duration: 42
+    path: "c11_2021/c11_2021_station_start_steam_hiss_exhaust_beat_pass_diesel_gen.flac"
+
+  SND_DECELERATE:
+    duration: 18
+    path: "c11_2021/c11_2021_arrival_hiss_brake_squeak_talking.flac"
+
+  SND_SHORT_WHISTLE:
+    duration: 16
+    path: "c11_2021_short_whistle_brake_hiss_steam_hiss_talking_background.flac"
+
+  SND_LONG_WHISTLE:
+    duration: 11
+    path: "c11_2021/c11_2021_long_whistle.flac"
+
+  SND_PASS_MED:
+    duration: 49
+    path: "c11_2021/c11_2021_approach_pass_and_coach_clicketyclack3.flac"
+

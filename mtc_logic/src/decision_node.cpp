@@ -10,6 +10,7 @@ decision::decision() {
     sub_dir = n.subscribe("dir", 1, &decision::dirCallback, this);
     sub_point_command = n.subscribe("point_command", 1, &decision::pointCommandCallback, this);
     sub_action = n.subscribe("action", 1, &decision::actionCallback, this);
+    sub_loco_change = n.subscribe("selected_loco", 1, &decision::locoChangeCallback, this);
 
     pub_ard_throttle = n.advertise<std_msgs::UInt8>("ard_throttle", 0);
     pub_ard_dir = n.advertise<std_msgs::UInt8>("ard_dir", 0);
@@ -25,7 +26,8 @@ decision::decision() {
     points_map[POINT_2_PIN] = p;
 
     //create locomotive object  
-    current_loco = new Loco(this);
+    current_loco = new Loco("default.yaml");
+    loaded_locos.push_back(current_loco);
 
     //create state machine
     m_sm = new StateMachine(this);
@@ -46,7 +48,7 @@ decision::decision() {
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 void decision::update() {
-    ROS_INFO("update!");
+    ROS_INFO("update!   current loco is %s", current_loco->name.c_str());
     //switch state if new action
     if (new_action_cmd) {
         new_action_cmd = false;
@@ -95,6 +97,21 @@ void decision::actionCallback(const std_msgs::Int32ConstPtr& action) {
     ROS_INFO("received action");
     new_action_cmd = true;
     last_action_cmd = static_cast<StateEnum>(action->data);
+}
+
+void decision::locoChangeCallback(const std_msgs::StringConstPtr& loco_name) {
+    ROS_INFO("received loco change %s\n", loco_name->data.c_str());
+    for (Loco* loco : loaded_locos) {
+        if (loco->name == loco_name->data) {
+            //we have already loaded this loco, no need to create again.
+            current_loco = loco;
+            return;
+        }
+    }
+    //If we get here, means this loco hasn't been loaded yet.
+    //Create the new loco, use it as current, and add it to the loaded locos vector.
+    current_loco = new Loco(loco_name->data + ".yaml");
+    loaded_locos.push_back(current_loco);
 }
 
 

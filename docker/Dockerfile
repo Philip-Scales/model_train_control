@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     qml-module-qtgraphicaleffects \
     alsa-utils \
     ffmpeg \
+    libyaml-cpp-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # ------------------------------

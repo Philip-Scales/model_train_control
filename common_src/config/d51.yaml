@@ -1,0 +1,30 @@
+name: "d51"
+start_throttle: 7
+stop_throttle: 0
+cruise_throttle: 40
+
+images:
+  front: "images/d51_front.png"
+  side: "images/d51_side.png"
+  top: "images/d51_top.png"
+
+sounds:
+  SND_ACCELERATE:
+    duration: 42
+    path: "d51/d51_station_start_steam_hiss_exhaust_beat_pass_diesel_gen.flac"
+
+  SND_DECELERATE:
+    duration: 18
+    path: "d51/d51_arrival_hiss_brake_squeak_talking.flac"
+
+  SND_SHORT_WHISTLE:
+    duration: 16
+    path: "d51_short_whistle_brake_hiss_steam_hiss_talking_background.flac"
+
+  SND_LONG_WHISTLE:
+    duration: 11
+    path: "d51/d51_long_whistle.flac"
+
+  SND_PASS_MED:
+    duration: 49
+    path: "d51/d51_approach_pass_and_coach_clicketyclack3.flac"

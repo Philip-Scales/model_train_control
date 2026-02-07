@@ -34,6 +34,9 @@ find_package(catkin REQUIRED COMPONENTS
   genmsg
 )
 
+## Find yaml-cpp system package
+find_package(yaml-cpp REQUIRED)
+
 
 # Populate a CMake variable with the sources
 set(helloworld_SRCS
@@ -147,6 +150,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
     ${catkin_INCLUDE_DIRS}
+    ${YAML_CPP_INCLUDE_DIR}
     ../common_src
 )
 
@@ -234,5 +238,5 @@ add_executable(mtc_ui ${helloworld_SRCS} src/resources.qrc)
 qt5_use_modules(mtc_ui Quick Core Widgets)
 
 
-target_link_libraries(mtc_ui Qt5::Widgets Qt5::Quick Qt5::Qml ${catkin_LIBRARIES})
+target_link_libraries(mtc_ui Qt5::Widgets Qt5::Quick Qt5::Qml ${catkin_LIBRARIES} yaml-cpp)
 

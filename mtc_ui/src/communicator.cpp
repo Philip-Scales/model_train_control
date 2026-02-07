@@ -1,5 +1,6 @@
 #include "communicator.h"
 #include "std_msgs/Int32.h"
+#include "std_msgs/String.h" 
 
 #include <QEventLoop>
 
@@ -76,6 +77,7 @@ void Communicator::run() {
     m_pub_point_command = m_ros_node_handle->advertise<std_msgs::Int32>("point_command", 1);
     m_pub_sound_id = m_ros_node_handle->advertise<std_msgs::Int32>("sound_id", 1);
     m_pub_action = m_ros_node_handle->advertise<std_msgs::Int32>("action", 1);
+    m_pub_loco_change = m_ros_node_handle->advertise<std_msgs::String>("selected_loco", 1);
 
     m_emergency_stop_timer = new QTimer();
     m_emergency_stop_timer->setInterval(20);
@@ -105,4 +107,14 @@ void Communicator::onTimeout() {
     mvt.angular.z = 0;
 
     m_twist_publisher.publish(mvt); // spam motors with 0
+}
+
+
+void Communicator::handleLocoSelected(const QString &loco_name)
+{
+    ROS_INFO_STREAM("Publish Loco selected: " << loco_name.toStdString());
+
+    std_msgs::String msg;
+    msg.data = loco_name.toStdString();
+    m_pub_loco_change.publish(msg);
 }

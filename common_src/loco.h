@@ -2,6 +2,8 @@
 #define LOCO_H
 
 #include "globals.h"
+#include <map>
+#include <string>
 
 class decision;
 
@@ -13,11 +15,18 @@ protected:
     decision *m_decision_node_ptr;
 
 public:
-    Loco(decision *decision_node_ptr);
-    Sound getSound(soundEnum snd_type);
+    std::string name;
+    std::map<std::string, std::string> images;
+    std::map<std::string, Sound> sounds;
     int m_start_throttle = 154;
     int m_stop_throttle = 138;
     int m_cruise_throttle = 170;
+
+    //constructor
+    // Reads loco information from a YAML file and initializes the Loco object.
+    Loco(const std::string &filename);
+    Sound getSound(const std::string &sound_name) const;
+
 
     //br78 range [0;1]: 0.60 0.64   153 168.3
 
