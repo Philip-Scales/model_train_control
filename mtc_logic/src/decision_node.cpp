@@ -11,6 +11,7 @@ decision::decision() {
     sub_point_command = n.subscribe("point_command", 1, &decision::pointCommandCallback, this);
     sub_action = n.subscribe("action", 1, &decision::actionCallback, this);
     sub_loco_change = n.subscribe("selected_loco", 1, &decision::locoChangeCallback, this);
+    sub_sound_command = n.subscribe("sound_type", 1, &decision::soundCommandCallback, this);
 
     pub_ard_throttle = n.advertise<std_msgs::UInt8>("ard_throttle", 0);
     pub_ard_dir = n.advertise<std_msgs::UInt8>("ard_dir", 0);
@@ -68,6 +69,10 @@ void decision::update() {
 }// update
 
 
+/*
+* CALLBACKS
+*/
+
 void decision::throttleSliderCallback(const std_msgs::Float32ConstPtr &val) {
     // when we get a new throttle slider value, we switch to idle state 
     // to stop any current action and let the user take control of the train
@@ -103,15 +108,21 @@ void decision::locoChangeCallback(const std_msgs::StringConstPtr& loco_name) {
     ROS_INFO("received loco change %s\n", loco_name->data.c_str());
     for (Loco* loco : loaded_locos) {
         if (loco->name == loco_name->data) {
-            //we have already loaded this loco, no need to create again.
-            current_loco = loco;
-            return;
+            // force a reload of the config file by destroying and calling constructor again.
+            delete current_loco; // free memory of previous loco
+            break;
         }
     }
     //If we get here, means this loco hasn't been loaded yet.
     //Create the new loco, use it as current, and add it to the loaded locos vector.
     current_loco = new Loco(loco_name->data + ".yaml");
     loaded_locos.push_back(current_loco);
+}
+
+void decision::soundCommandCallback(const std_msgs::StringConstPtr& sound_type) {
+    ROS_INFO("received sound command %s\n", sound_type->data.c_str());
+    Sound snd = current_loco->getSound(sound_type->data);
+    playSound(snd.path);
 }
 
 

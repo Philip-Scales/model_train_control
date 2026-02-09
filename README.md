@@ -6,6 +6,7 @@ The idea is that the arduino is connected to the electronics on the railway (tra
 
 ## Features to be added:
 - locomotive configuration tool: easy process to set values for minimum, maximum, and shunting speeds for each loco.
+- read soundfile duration automatically instead of having to input it into the loco config file
 - preset actions for each locomotive: at the click of a button on the GUI, a train will accelerate to cruising speed, decelerate, stop, run around...
 - integration of sensors for advanced automated operation
 - add more sounds, both manual and as part of the preset actions

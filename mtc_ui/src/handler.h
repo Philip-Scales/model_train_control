@@ -26,8 +26,9 @@ signals:
     void point1ButtonClicked();
     void point2ButtonClicked();
 
-    //Could probably make these into a generic function which takes sound ID as argument.
-    void shortWhistleClicked();
+    void soundButtonClicked(const QString &buttonId);
+
+    //Could probably make these into a generic function which takes action ID as argument.
     void stationDepartClicked();
     void stationArriveClicked();
 
@@ -37,7 +38,7 @@ signals:
 
 public:
     Handler(QObject *_parent = nullptr);
-    QStringList locoNames;   // <-- ADD THIS
+    QStringList locoNames;
 
     //slots are functions that are called in response to signals. 
     //In this case, they are called when the corresponding UI element is interacted with (e.g., a button is clicked). 
@@ -52,7 +53,7 @@ public slots:
     void onPoint2_button_clicked();
 
     //Could probably make these into a generic function which takes sound ID as argument.
-    void onShort_whistle_clicked();
+    void onSoundButtonClicked(const QString &buttonId);
     void onstation_depart_clicked();
     void onstation_arrive_clicked();
 

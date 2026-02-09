@@ -24,7 +24,7 @@ public slots:
     void reportDirBackwardClicked();
     void reportPoint1ButtonClicked();
     void reportPoint2ButtonClicked();
-    void reportShortWhistleClicked();
+    void reportSoundButtonClicked(const QString &buttonId);
     void reportStationDepartClicked();
     void reportStationArriveClicked();
 
@@ -40,7 +40,7 @@ private:
     ros::Publisher m_translation_emergency_stop_publisher;
     ros::Publisher m_pub_throttle_slider;
     ros::Publisher m_pub_point_command;
-    ros::Publisher m_pub_sound_id;
+    ros::Publisher m_pub_sound_type;
     ros::Publisher m_pub_action;
     ros::Publisher m_pub_loco_change;  // new publisher for selected loco
 

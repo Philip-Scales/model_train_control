@@ -42,6 +42,9 @@ typedef struct s_Sound {
 } Sound;
 
 
+void playSound(const std::string &sound_path);
+
+
 
 
 #endif //GLOBALS_H

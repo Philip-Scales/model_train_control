@@ -353,42 +353,60 @@ Rectangle {
     }
 
 
-    Rectangle {
-        id: short_whistle
-        property bool toggled: true
-        x: 130
-        y: 130
+    //Sound button template
+    Component {
+        id: soundButtonComponent
+        Rectangle {
+            id: root
+            property string buttonId: "" // This will be set by the Loader
+            width: 125
+            height: 125
+            color: mouseArea.pressed ? "#649bd2" : '#094b8d'
 
-        width: 125
-        height: 125
-        color: "#649bd2"
-        anchors.rightMargin: 17
-        anchors.topMargin: 130
-        visible: true
+            MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+                onClicked: {
+                    handler.onSoundButtonClicked(root.buttonId)
+                }
+            }
 
-        anchors {
-            top: parent.top
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                short_whistle.toggled = !short_whistle.toggled
-                console.log("CLICKED short_whistle");
-                handler.onShort_whistle_clicked();
+            Text {
+                text: root.buttonId.replace("_", "\n")
+                anchors.fill: parent
+                font.pixelSize: 12
+                font.capitalization: Font.SmallCaps
+                font.bold: true
+                font.family: "Arial"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
             }
         }
-        Text {
-            text: "Short\nWhistle"
-            anchors.fill: parent
-            font.pixelSize: 25
-            font.capitalization: Font.SmallCaps
-            font.bold: true
-            font.family: "Arial"
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+    }
+
+    Loader {
+        id: shortWhistleLoader
+        sourceComponent: soundButtonComponent
+        x: 130
+        y: 130
+        property string buttonId: "SND_SHORT_WHISTLE"
+        onLoaded: {
+            item.buttonId = shortWhistleLoader.buttonId
         }
     }
+
+    Loader {
+        id: longWhistleLoader
+        sourceComponent: soundButtonComponent
+        x: 260
+        y: 130
+        property string buttonId: "SND_LONG_WHISTLE"
+        onLoaded: {
+            item.buttonId = longWhistleLoader.buttonId
+        }
+    }
+
+
 
     Rectangle {
         id: station_depart

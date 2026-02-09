@@ -1,0 +1,32 @@
+name: "h100"
+#not tuned yet
+start_throttle: 95
+stop_throttle: 90
+cruise_throttle: 120
+
+images:
+  front: "images/h100_front.png"
+  side: "images/h100_side.png"
+  top: "images/h100_top.png"
+
+sounds:
+  SND_ACCELERATE:
+    duration: 32
+    path: "h100/H100_idle-horn-departure2.flac"
+
+  SND_DECELERATE:
+    duration: 18
+    path: ""
+
+  SND_SHORT_WHISTLE:
+    duration: 2
+    path: "h100/H100_short_horn_and_jnr_whistle.flac"
+
+
+  SND_LONG_WHISTLE:
+    duration: 2
+    path: "h100/H100_long_horn_only.flac"
+
+  SND_PASS_MED:
+    duration: 0
+    path: ""

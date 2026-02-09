@@ -51,11 +51,11 @@ void Communicator::reportPoint2ButtonClicked() {
     m_pub_point_command.publish(point_pin);
 }
 
-void Communicator::reportShortWhistleClicked() {
-    ROS_INFO("reportShortWhistleClicked");
-    std_msgs::Int32 sound_clip_id;
-    sound_clip_id.data = static_cast<int>(SND_SHORT_WHISTLE);
-    m_pub_sound_id.publish(sound_clip_id);
+void Communicator::reportSoundButtonClicked(const QString &buttonId) {
+    std_msgs::String sound_type;
+    sound_type.data = buttonId.toStdString();
+    ROS_INFO("reportSoundButtonClicked %s", sound_type.data.c_str());
+    m_pub_sound_type.publish(sound_type);
 }
 
 void Communicator::reportStationDepartClicked() {
@@ -75,7 +75,7 @@ void Communicator::run() {
     m_action_publisher = m_ros_node_handle->advertise<std_msgs::Int32>("dir", 1);
     m_pub_throttle_slider = m_ros_node_handle->advertise<std_msgs::Float32>("throttle_slider", 1);
     m_pub_point_command = m_ros_node_handle->advertise<std_msgs::Int32>("point_command", 1);
-    m_pub_sound_id = m_ros_node_handle->advertise<std_msgs::Int32>("sound_id", 1);
+    m_pub_sound_type = m_ros_node_handle->advertise<std_msgs::String>("sound_type", 1);
     m_pub_action = m_ros_node_handle->advertise<std_msgs::Int32>("action", 1);
     m_pub_loco_change = m_ros_node_handle->advertise<std_msgs::String>("selected_loco", 1);
 

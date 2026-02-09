@@ -19,7 +19,7 @@ sounds:
 
   SND_SHORT_WHISTLE:
     duration: 16
-    path: "d51_short_whistle_brake_hiss_steam_hiss_talking_background.flac"
+    path: "d51/d51_short_whistle_brake_hiss_steam_hiss_talking_background.flac"
 
   SND_LONG_WHISTLE:
     duration: 11

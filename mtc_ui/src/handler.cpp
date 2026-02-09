@@ -34,9 +34,9 @@ void Handler::onPoint2_button_clicked() {
     emit point2ButtonClicked();
 }
 
-void Handler::onShort_whistle_clicked() {
-    qDebug() << __FUNCTION__;
-    emit shortWhistleClicked();
+void Handler::onSoundButtonClicked(const QString &buttonId) {
+    qDebug() << __FUNCTION__ << "buttonId:" << buttonId;
+    emit soundButtonClicked(buttonId);
 }
 
 void Handler::onstation_depart_clicked() {

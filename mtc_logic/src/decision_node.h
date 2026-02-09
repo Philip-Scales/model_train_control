@@ -23,8 +23,9 @@ public:
     void throttleSliderCallback(const std_msgs::Float32ConstPtr& val); //get throttle slider value [0.0, 255.0] from ui
     void dirCallback(const std_msgs::Int32ConstPtr& dir); //get train direction from ui (enum dir in globals.h)
     void pointCommandCallback(const std_msgs::Int32ConstPtr& pc); //get point to be switched
-    void actionCallback(const std_msgs::Int32ConstPtr& action);
-    void locoChangeCallback(const std_msgs::StringConstPtr& loco_name); //get selected loco from ui
+    void actionCallback(const std_msgs::Int32ConstPtr& action); //process action command from ui (station departure sequence for example)
+    void locoChangeCallback(const std_msgs::StringConstPtr& loco_name); //provenance change of loco from ui, to update current loco pointer and throttle values accordingly
+    void soundCommandCallback(const std_msgs::StringConstPtr& sound_type); //process sound command from ui
 
 private:
     ros::NodeHandle n;
