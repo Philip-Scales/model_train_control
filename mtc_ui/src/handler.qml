@@ -385,6 +385,17 @@ Rectangle {
     }
 
     Loader {
+        id: brakeHissLoader
+        sourceComponent: soundButtonComponent
+        x: 0
+        y: 130
+        property string buttonId: "SND_BRAKE_HISS"
+        onLoaded: {
+            item.buttonId = brakeHissLoader.buttonId
+        }
+    }
+
+    Loader {
         id: shortWhistleLoader
         sourceComponent: soundButtonComponent
         x: 130

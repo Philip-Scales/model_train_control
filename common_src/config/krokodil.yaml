@@ -1,0 +1,36 @@
+name: "krokodil"
+#not tuned yet
+start_throttle: 95
+stop_throttle: 90
+cruise_throttle: 120
+
+images:
+  front: "images/h100_front.png"
+  side: "images/h100_side.png"
+  top: "images/h100_top.png"
+
+sounds:
+  SND_ACCELERATE:
+    duration: 46
+    path: "SBB_Krokodil_Ce6_8/SBB_Krokodil_Station_depart_no_whistle.flac"
+
+  SND_DECELERATE:
+    duration: 18
+    path: "SBB_Krokodil_Ce6_8/"
+
+  SND_SHORT_WHISTLE:
+    duration: 2
+    path: "SBB_Krokodil_Ce6_8/SBB_Krokodil-short_whistle.flac"
+
+
+  SND_LONG_WHISTLE:
+    duration: 2
+    path: "SBB_Krokodil_Ce6_8/SBB_Krokodil_med_whistle.flac"
+
+  SND_PASS_MED:
+    duration: 42
+    path: "SBB_Krokodil_Ce6_8/SBB_Krokodil_Station_approach_no_whistle.flac"
+
+  SND_BRAKE_HISS:
+    duration: 6
+    path: "SBB_Krokodil_Ce6_8/SBB_Krokodil-brake_hiss.flac"
